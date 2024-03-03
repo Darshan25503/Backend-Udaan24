@@ -1,9 +1,11 @@
 const userModel = require("../model/userModel");
+const JWT = require("jsonwebtoken");
 
+//Register User Controller
 exports.registerUserController = async (req, res) => {
   try {
     const { name, idNo, mobile, email, password, college } = req.body;
-    const exUser = await userModel.findOne({ email });
+    const exUser = await userModel.findOne({ email: email.toLowerCase() });
     if (exUser) {
       return res.status(209).json({
         success: false,
@@ -14,7 +16,7 @@ exports.registerUserController = async (req, res) => {
       name: name,
       idNo: idNo,
       password: password,
-      email: email,
+      email: email.toLowerCase(),
       college: college,
       mobile: mobile,
     }).save();
@@ -29,5 +31,51 @@ exports.registerUserController = async (req, res) => {
       success: false,
       message: "Internal server error",
     });
+  }
+};
+
+//Login User Controller
+
+exports.loginUserController = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const existingUser = await userModel.findOne({
+      email: email.toLowerCase(),
+    });
+
+    if (!existingUser) {
+      return res.status(200).json({
+        success: false,
+        message: "Invalid username or password a",
+      });
+    }
+
+    if (password !== existingUser.password) {
+      return res.status(200).json({
+        success: false,
+        message: "Invalid username or password",
+      });
+    }
+
+    //JWT generation
+
+    const token = await JWT.sign(
+      { _id: existingUser._id },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "2d",
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "User Login Successful",
+      token,
+    });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ success: false, message: "Internal server error in user login" });
   }
 };
