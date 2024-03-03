@@ -25,6 +25,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  points: {
+    type: Number,
+  },
+  role: {
+    type: String,
+    default: "user",
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("user", userSchema);

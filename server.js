@@ -2,6 +2,7 @@ const express = require("express");
 const connectDB = require("./config/db");
 const dotenv = require("dotenv").config({ path: "./my.env" });
 const userRoute = require("./routes/userRoute");
+const eventRoute = require("./routes/eventRoute");
 
 //database config
 connectDB();
@@ -14,6 +15,9 @@ app.use(express.json());
 
 //user route
 app.use("/api/v1/user", userRoute);
+
+//event route
+app.use("/api/v1/event", eventRoute);
 
 //rest api
 app.get("/", (req, res) => {

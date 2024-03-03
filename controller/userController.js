@@ -63,7 +63,7 @@ exports.loginUserController = async (req, res) => {
       { _id: existingUser._id },
       process.env.JWT_SECRET,
       {
-        expiresIn: "2d",
+        expiresIn: "1d",
       }
     );
 
@@ -77,5 +77,18 @@ exports.loginUserController = async (req, res) => {
     res
       .status(500)
       .json({ success: false, message: "Internal server error in user login" });
+  }
+};
+
+//fetch users
+
+exports.fetchUserController = async (req, res) => {
+  try {
+    const data = await userModel.find();
+    res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    console.log(error);
   }
 };
