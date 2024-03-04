@@ -3,11 +3,9 @@ const mongoose = require("mongoose");
 const orderSchema = new mongoose.Schema({
   users: [
     {
-      userId: {
-        type: String,
-        ref: "user",
-        required: true,
-      },
+      type: String,
+      ref: "user",
+      required: true,
     },
   ],
   eventId: {
