@@ -42,11 +42,9 @@ const eventSchema = new mongoose.Schema({
       userId: {
         type: String,
         ref: "user",
-        required: true,
       },
       roundNo: {
         type: Number,
-        required: true,
         default: 0,
       },
     },
