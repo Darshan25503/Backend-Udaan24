@@ -4,6 +4,7 @@ const dotenv = require("dotenv").config({ path: "./my.env" });
 const userRoute = require("./routes/userRoute");
 const eventRoute = require("./routes/eventRoute");
 const questionRoute = require("./routes/questionRoute");
+const orderRoute = require("./routes/orderRoute");
 
 //database config
 connectDB();
@@ -22,6 +23,9 @@ app.use("/api/v1/event", eventRoute);
 
 //quetion route
 app.use("/api/v1/questions", questionRoute);
+
+//order route
+app.use("/api/v1/orders", orderRoute);
 
 //rest api
 app.get("/", (req, res) => {
