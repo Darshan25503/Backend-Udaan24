@@ -5,6 +5,7 @@ const userRoute = require("./routes/userRoute");
 const eventRoute = require("./routes/eventRoute");
 const questionRoute = require("./routes/questionRoute");
 const orderRoute = require("./routes/orderRoute");
+const nightRoute = require("./routes/nightRoute");
 
 //database config
 connectDB();
@@ -26,6 +27,9 @@ app.use("/api/v1/questions", questionRoute);
 
 //order route
 app.use("/api/v1/orders", orderRoute);
+
+//night route
+app.use("/api/v1/night", nightRoute);
 
 //rest api
 app.get("/", (req, res) => {
