@@ -4,6 +4,7 @@ const {
   loginUserController,
   fetchUserController,
 } = require("../controller/userController");
+const { requireSignIn, isAdmin } = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 
@@ -15,6 +16,6 @@ router.post("/login", loginUserController);
 
 //GET || fetch users
 
-router.get("/fetch", fetchUserController);
+router.get("/fetch", requireSignIn, isAdmin, fetchUserController);
 
 module.exports = router;
