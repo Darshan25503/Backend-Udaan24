@@ -1,6 +1,54 @@
 const orderModel = require("../model/orderModel");
 const userModel = require("../model/userModel");
 
+//create order controller
+exports.createOrderController = async (req, res) => {
+  try {
+    const { users, eventId, paymentMode, paymentRef, price } = req.body;
+    // Check for duplicate users and validate existence
+    const existingUsers = await userModel.find({ email: { $in: users } });
+    if (existingUsers.length !== users.length) {
+      return res
+        .status(400)
+        .json({ success: false, message: "One or more users do not exist" });
+    }
+    const userIds = existingUsers.map((user) => user._id);
+
+    // Check if an order already exists for the same event and users
+    const existingOrder = await orderModel.findOne({
+      eventId: eventId,
+      users: { $all: userIds },
+    });
+
+    if (existingOrder) {
+      return res.status(400).json({
+        success: false,
+        message: "Order already exists for the same event and users",
+      });
+    }
+    // Create order
+    const order = new orderModel({
+      users: existingUsers.map((user) => user._id), // Use user IDs
+      eventId: eventId,
+      paymentMode: paymentMode,
+      paymentRef: paymentRef,
+      price: price,
+    });
+    await order.save();
+
+    res
+      .status(201)
+      .json({ success: true, message: "Order created successfully", order });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
+//fetch order controller
 exports.fetchOrderController = async (req, res) => {
   try {
     const orders = await orderModel.find({});

@@ -3,10 +3,15 @@ const {
   fetchOrderController,
   fetchSingleOrderController,
   fetchUserByEventController,
+  createOrderController,
 } = require("../controller/orderController");
 const { requireSignIn, isAdmin } = require("../middlewares/authMiddleware");
 
 const router = express.Router();
+
+//POST || Create order
+
+router.post("/createOrder", requireSignIn, createOrderController);
 
 //GET || Fetch all orders
 
