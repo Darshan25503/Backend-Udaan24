@@ -1,6 +1,6 @@
 const userModel = require("../model/userModel");
 const JWT = require("jsonwebtoken");
-const otpGenerator = require("otp-generator");
+
 const sendOTPEmail = require("../utils/otpMail");
 
 //Register User Controller
