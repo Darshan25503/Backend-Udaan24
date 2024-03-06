@@ -105,7 +105,7 @@ exports.loginUserController = async (req, res) => {
     if (!existingUser) {
       return res.status(200).json({
         success: false,
-        message: "Invalid username or password a",
+        message: "Invalid username or password",
       });
     }
 
@@ -125,7 +125,12 @@ exports.loginUserController = async (req, res) => {
         expiresIn: "1d",
       }
     );
-
+    res.cookie("token", token, {
+      maxAge: 86400000,
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+    });
     res.status(200).json({
       success: true,
       message: "User Login Successful",
