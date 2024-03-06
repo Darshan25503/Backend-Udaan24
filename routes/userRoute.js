@@ -3,6 +3,7 @@ const {
   registerUserController,
   loginUserController,
   fetchUserController,
+  verifyOTP,
 } = require("../controller/userController");
 const { requireSignIn, isAdmin } = require("../middlewares/authMiddleware");
 
@@ -15,7 +16,9 @@ router.post("/register", registerUserController);
 router.post("/login", loginUserController);
 
 //GET || fetch users
-
 router.get("/fetch", requireSignIn, isAdmin, fetchUserController);
+
+//POST || OTP verification
+router.post("/verifyOTP", verifyOTP);
 
 module.exports = router;
