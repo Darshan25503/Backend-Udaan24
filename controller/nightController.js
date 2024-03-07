@@ -12,9 +12,9 @@ exports.checkPointsController = async (req, res) => {
 
     if (points < 100) {
       nightCount = 0;
-    } else if (points > 100 && points < 150) {
+    } else if (points > 100 && points < 200) {
       nightCount = 1;
-    } else if (points > 150) {
+    } else if (points > 200) {
       nightCount = 2;
     }
 
