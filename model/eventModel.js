@@ -21,6 +21,11 @@ const eventSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  eventManager: {
+    type: String,
+    ref: "user",
+    required: true,
+  },
   eventDetail: [
     {
       roundDesc: {
