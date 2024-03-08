@@ -65,3 +65,22 @@ exports.updateAttendeeController = async (req, res) => {
     });
   }
 };
+
+//fetch event by category controoler
+
+exports.fetchEventByCategoryController = async (req, res) => {
+  try {
+    const { category } = req.params;
+    const events = await eventModel.find({ category: category });
+    res.status(200).json({
+      success: true,
+      events,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server error",
+    });
+  }
+};
