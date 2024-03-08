@@ -41,6 +41,16 @@ const userSchema = new mongoose.Schema({
   otp: {
     type: Number,
   },
+  garba: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
+  edm: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("user", userSchema);

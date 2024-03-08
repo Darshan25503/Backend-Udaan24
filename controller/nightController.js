@@ -33,3 +33,48 @@ exports.checkPointsController = async (req, res) => {
     });
   }
 };
+
+//Qr Scanning
+
+exports.scanQR = async (req, res) => {
+  try {
+    const { userId, night } = req.body;
+    const user = await userModel.findById({ _id: userId });
+
+    if (night === 1) {
+      if (user.garba) {
+        return res.status(206).json({
+          success: false,
+          message: "This QR code is Already used once",
+        });
+      } else {
+        user.garba = true;
+        await user.save();
+        return res.status(200).json({
+          success: true,
+          message: "You are Welcome",
+        });
+      }
+    } else if (night === 2) {
+      if (user.edm) {
+        return res.status(206).json({
+          success: false,
+          message: "This QR code is Already used once",
+        });
+      } else {
+        user.edm = true;
+        await user.save();
+        return res.status(200).json({
+          success: true,
+          message: "You are Welcome",
+        });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
