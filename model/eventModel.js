@@ -13,6 +13,10 @@ const eventSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  category: {
+    type: String,
+    required: true,
+  },
   noOfParticipants: {
     type: Number,
     required: true,
