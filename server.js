@@ -6,6 +6,7 @@ const eventRoute = require("./routes/eventRoute");
 const questionRoute = require("./routes/questionRoute");
 const orderRoute = require("./routes/orderRoute");
 const nightRoute = require("./routes/nightRoute");
+const redCarpetRoute = require("./routes/redCarpetRoute");
 
 //database config
 connectDB();
@@ -30,6 +31,9 @@ app.use("/api/v1/orders", orderRoute);
 
 //night route
 app.use("/api/v1/night", nightRoute);
+
+//redCarpet Route
+app.use("/api/v1/redcarpet", redCarpetRoute);
 
 //rest api
 app.get("/", (req, res) => {

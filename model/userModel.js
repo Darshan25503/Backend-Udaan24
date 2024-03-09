@@ -51,6 +51,11 @@ const userSchema = new mongoose.Schema({
     default: false,
     required: true,
   },
+  isVoted: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("user", userSchema);
